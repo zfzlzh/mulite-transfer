@@ -2,7 +2,7 @@
  * @Author: zfz
  * @Date: 2021-11-12 14:16:29
  * @LastEditors: zfz
- * @LastEditTime: 2021-11-12 16:38:32
+ * @LastEditTime: 2021-11-12 16:42:34
  * @Description: update
 -->
 # mulite-transfer
@@ -24,8 +24,8 @@
     model---变化后的所有接收框的值，{  
         key--接收框的序号,对应传入的标题的序号:[  
             {  
-                "label": "选项0"--选项名称",  
-                value": "0"--选项值",  
+                label: "选项0"--选项名称",  
+                value: "0"--选项值",  
                 sequence": 0--选项序号  
             }  
         ]  
@@ -34,5 +34,5 @@
     changeData--- 改变的接收框的数据 |
 
 ### 其他
-清除输入框方法 refDom.clearQuery(dire,index) 
+清除输入框方法 refDom.clearQuery(dire,index)  
 -- dire:方向，left/right/all;index:接收框的序号，dire为right时有效
