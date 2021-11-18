@@ -2,7 +2,7 @@
  * @Author: zfz
  * @Date: 2021-11-12 14:16:29
  * @LastEditors: zfz
- * @LastEditTime: 2021-11-18 11:33:20
+ * @LastEditTime: 2021-11-18 11:36:39
  * @Description: update
 -->
 # mulite-transfer
@@ -18,7 +18,7 @@
 | rightDefault | 接收框默认选中  | Object | {} |
 | leftDefault | 左边框默认选中  | Array | [] |  
 ### 参数格式
-`
+```
 data [  
     {label:'',value:''},  
     ...  
@@ -35,7 +35,7 @@ leftDefault [
     'value1',  
     ...  
 ]
-`
+```
 ### 事件
 
 |  事件名称|  描述  | 参数 |
@@ -59,8 +59,8 @@ leftDefault [
 -- dire:方向，left/right/all;index:接收框的序号，dire为right时有效
 
 ### 使用
-`
+```
 npm i mulite-transfer --save  
 import muliteTransfer from "mulite-transfer"  
 Vue.use(muliteTransfer)
-`
+```
