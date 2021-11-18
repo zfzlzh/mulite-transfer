@@ -2,7 +2,7 @@
  * @Author: zfz
  * @Date: 2021-11-12 14:16:29
  * @LastEditors: zfz
- * @LastEditTime: 2021-11-18 11:21:48
+ * @LastEditTime: 2021-11-18 11:33:20
  * @Description: update
 -->
 # mulite-transfer
@@ -16,25 +16,26 @@
 | value/v-model | 接收框的数据 | Object | {} |
 | rightBoxList | 接收框标题的集合  | Array | ['右边的标题1'] |
 | rightDefault | 接收框默认选中  | Object | {} |
-| leftDefault | 左边框默认选中  | Array | []  
+| leftDefault | 左边框默认选中  | Array | [] |  
 ### 参数格式
---  data [  
-        {label:'',value:''},  
-        ...  
-    ]  
---  value/v-model {  
-        0:[1,...],  
-        ...  
-    }  
---  rightDefault {  
-        0:[1],  
-        ...  
-    }  
--- leftDefault [  
-        'value1',  
-        ...  
-    ] | 
-
+`
+data [  
+    {label:'',value:''},  
+    ...  
+]  
+value/v-model {  
+    0:[1,...],  
+    ...  
+}  
+rightDefault {  
+    0:[1,...],  
+    ...  
+}  
+leftDefault [  
+    'value1',  
+    ...  
+]
+`
 ### 事件
 
 |  事件名称|  描述  | 参数 |
@@ -58,6 +59,8 @@
 -- dire:方向，left/right/all;index:接收框的序号，dire为right时有效
 
 ### 使用
+`
 npm i mulite-transfer --save  
 import muliteTransfer from "mulite-transfer"  
 Vue.use(muliteTransfer)
+`
