@@ -2,7 +2,7 @@
  * @Author: zfz
  * @Date: 2021-11-12 14:16:29
  * @LastEditors: zfz
- * @LastEditTime: 2021-11-18 10:17:33
+ * @LastEditTime: 2021-11-18 10:45:24
  * @Description: update
 -->
 # mulite-transfer
@@ -23,18 +23,18 @@
 |  事件名称|  描述  | 参数 |
 | --- | --- | --- |
 | changeTransfer | 穿梭框左右数据变化时触发 |   valueList,modelList,dire,changeData  
---  valueList---变化后的所有接受框的值,
---  modelList---变化后的所有接收框的值的整体对象，{  
---      key--接收框的序号,对应传入的标题的序号:[  
---          {  
---              label: "选项0"--选项名称",  
---              value: "0"--选项值",  
---              sequence": 0--选项序号  
---          }  
---      ]  
---  },  
---  dire---传输方向,left/right,  
---  changeData--- 改变的接收框的数据 |
+    valueList---变化后的所有接受框的值,
+    modelList---变化后的所有接收框的值的整体对象，{  
+        key--接收框的序号,对应传入的标题的序号:[  
+            {  
+                label: "选项0"--选项名称",  
+                value: "0"--选项值",  
+                sequence": 0--选项序号  
+            }  
+        ]  
+    },  
+    dire---传输方向,left/right,  
+    changeData--- 改变的接收框的数据 |
 
 ### 其他
 清除输入框方法 refDom.clearQuery(dire,index)  
