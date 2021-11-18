@@ -5,17 +5,17 @@
             class="transfer-box-left"
             :title="leftTitle"
             v-model="leftData"
-            :list="leftList"
+            :boxList="leftList"
             ref="leftBox"
             :listHeight="leftListHeight"
         >
-        <template v-slot:other="{item}">
-            <slot name="left" :item="item"></slot>
-        </template>
+			<template v-slot:other="{item}">
+				<slot name="left" :item="item"></slot>
+			</template>
         </transferBoxItem>
         <!-- 按钮与右边,可复数 -->
-        <div class="transfer-box-center-right" ref="boxCenterRight">
-            <div class="transfer-box-center-right-item" v-for="(item,index) in acceptBoxList" :key="index">
+        <div class="transfer-box-center-right" ref="boxCenterRight" v-if="acceptBoxList && acceptBoxList.length != 0">
+            <div class="transfer-box-center-right-item" v-for="(item,index) in acceptBoxList" :key="item.sequence">
                 <!-- 按钮 -->
                 <div class="center-btn">
                     <div class="to-left btn-item" @click="transferTo('left',index)">
@@ -30,12 +30,12 @@
                     class="transfer-box-right"
                     :title="item.title"
                     v-model="item.data"
-                    :list="item.list"
+                    :boxList="item.list"
                     :ref="'rightBox' + index"
                 >
-                <template v-slot:other="{item}">
-                    <slot name="right" :item="item"></slot>
-                </template>
+					<template v-slot:other="{item}">
+						<slot name="right" :item="item"></slot>
+					</template>
                 </transferBoxItem>
             </div>
         </div>
@@ -64,7 +64,15 @@ export default {
         rightBoxList:{
             type:Array,
             default:()=>["右边标题1"]
-        }
+        },
+		rightDefault:{
+			type:Object,
+			default:()=>{}
+		},
+		leftDefault:{
+			type:Array,
+			default:()=>[]
+		}
     },
 	data(){
 		return {
@@ -83,19 +91,24 @@ export default {
 			deep:true,
 			immediate:true,
 			async handler(newVal){
-				console.log(newVal)
+				let seqData = this.data.map((val,index)=>{
+					val.sequence = index
+					return val
+				})
 				this.acceptBoxList = newVal.reduce((pre,item,index) => {
-				    return [...pre,{title:item,sequence:index,data:[],list:[]}]
+					let list = this.value && this.value[index] ? seqData.filter((val)=>{
+						return this.value[index].includes(val.value)
+					}) : []
+					let data = this.rightDefault && this.rightDefault[index] ? this.rightDefault[index] : []
+				    return [...pre,{title:item,sequence:index,data,list}]
 				},[]);  
 				// 将左边的数据进行过滤，去除右边的数据
 				let allCheckedList = await this.getAllCheckedList()
-				this.leftList = this.data.filter((val,index)=>{
-				    val.sequence = index
+				this.leftList = seqData.filter((val,index)=>{
 				    return !allCheckedList.includes(val.value)
 				})
-				
 			}
-		}
+		},
 	},
 	computed:{
 		leftListHeight(){
@@ -114,13 +127,17 @@ export default {
 	},
 	mounted(){
 		this.$nextTick(()=>{
+			this.leftData = this.leftDefault
 			this.isMounted = true
 		})
 	},
 	methods:{
+		// 获取所有接收框默认数据
 		getAllCheckedList(){
 			let list = this.acceptBoxList.map((val)=>{
-			    return val.data
+			    return val.list.map((item)=>{
+					return item.value
+				})
 			})
 			return list.flat()
 		},
@@ -133,18 +150,21 @@ export default {
 		        let {toList,fromList} = this.handlerData(filterObj)
 		        this.leftList = dire == 'right' ? fromList : toList
 		        this.acceptBoxList[index].list = dire == 'left' ? fromList : toList
-		        if(dire == 'left'){
+		        if(dire == 'right'){
 		            this.leftData = []
 		        }
-		        if(dire == 'right'){
+		        if(dire == 'left'){
 		            this.acceptBoxList[index].data = []
 		        }
 		        // 更新值，change事件
 		        let emitData = this.acceptBoxList.reduce((pre,val)=>{
-		            pre[val.sequence] = val.list
+		            pre.valueData[val.sequence] = val.list.map((item) => {
+						return item.value
+					})
+					pre.listData[val.sequence] = val.list
 		            return pre
-		        },{})
-		        this.$emit('returnBack',emitData)
+		        },{valueData:{},listData:{}})
+		        this.$emit('returnBack',emitData.valueList)
 		        this.change(dire,this.acceptBoxList[index],emitData)
 		  },
 		  // 操作数据
@@ -178,7 +198,8 @@ export default {
 		    }
 		},
 		change(dire,rightBox,emitData){
-		    this.$emit('change',emitData,dire,rightBox)
+			let {valueData,listData} = emitData
+		    this.$emit('changeTransfer',valueData,listData,dire,rightBox)
 		}
 	},
 }

@@ -2,12 +2,13 @@
  * @Author: zfz
  * @Date: 2021-11-12 14:23:15
  * @LastEditors: zfz
- * @LastEditTime: 2021-11-12 15:12:15
+ * @LastEditTime: 2021-11-18 10:26:45
  * @Description: update
 -->
 <template>
   <div id="app">
-    <muliteTransfer></muliteTransfer>
+    <muliteTransfer
+    ></muliteTransfer>
   </div>
 </template>
 <script>
@@ -15,7 +16,7 @@ import muliteTransfer from "./views/muliteTransfer.vue";
 export default{
   components:{
     muliteTransfer
-  }
+  },
 }
 </script>
 <style lang="scss">

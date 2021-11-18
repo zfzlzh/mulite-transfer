@@ -44,7 +44,7 @@
 </template>
 <script>
 export default {
-    name:'transferBoxitem',
+    name:'transferBoxItem',
     props:{
         title:{
             type:String,
@@ -54,7 +54,7 @@ export default {
             type:Array,
             default:()=>[]
         },
-        list:{
+        boxList:{
             type:Array,
             default:()=>[]
         },
@@ -79,19 +79,27 @@ export default {
 	watch:{
 		value:{
 			deep:true,
+            immediate:true,
 			handler(newVal){
 				this.checkData = newVal
 			}
 		},
-		list:{
+		boxList:{
 			deep:true,
 			handler(newVal){
 				this.checkList = newVal.reduce((pre,item)=>{
 				    return [...pre,{...item}]
 				},[])
+                
 			}
-		}
+		},
 	},
+    mounted(){
+        this.checkData = this.value
+        this.checkList = this.boxList.reduce((pre,item)=>{
+		    return [...pre,{...item}]
+		},[])
+    },
 	computed:{
 		checkAllData(){
 			return this.checkList.map(val => {
@@ -99,7 +107,7 @@ export default {
 			})
 		},
 		filterCheckList(){
-			this.checkData = []
+			// this.checkData = []
 			let list = ['','null','undefined'].includes(this.filterData + '') ? this.checkList : this.filterList()
 			return list.sort((a,b)=> {
 			    return a.sequence - b.sequence
@@ -130,7 +138,7 @@ export default {
 		  },
 		//   过滤数据
 		  filterList(){
-		      this.$emit('returnBack',this.checkData)
+		    //   this.$emit('returnBack',this.checkData)
 		      let list = this.checkList.filter(val => {
 		          return val.label.toUpperCase().indexOf(this.filterData.toUpperCase()) > -1
 		      })
