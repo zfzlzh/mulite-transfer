@@ -2,7 +2,7 @@
  * @Author: zfz
  * @Date: 2021-11-12 14:16:29
  * @LastEditors: zfz
- * @LastEditTime: 2021-11-18 11:12:51
+ * @LastEditTime: 2021-11-18 11:16:51
  * @Description: update
 -->
 # mulite-transfer
@@ -17,20 +17,23 @@
 | rightBoxList | 接收框标题的集合  | Array | ['右边的标题1'] |
 | rightDefault | 接收框默认选中  | Object | {} |
 | leftDefault | 左边框默认选中  | Array | [] |  
-### 格式
+### c参数格式
 --  data [  
-    {label:'',value:''},
-    ...
-]  
+        {label:'',value:''},  
+        ...  
+    ]  
 --  value/v-model {  
-    0:[1,...],  
-    ...
-}  
+        0:[1,...],  
+        ...  
+    }  
 --  rightDefault {  
-    0:[1],
-    ...
-}  
--- leftDefault ['value1',...]
+        0:[1],  
+        ...  
+    }  
+-- leftDefault [  
+        'value1',  
+        ...  
+    ]
 
 ### 事件
 
